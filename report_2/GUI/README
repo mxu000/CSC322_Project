@@ -1,1 +1,4 @@
-yea
+After Logging in, it will redirect you to the home page, although the home page still shows login and register option that is because
+the view for logged in users haven't been created yet, but you will be in logged in status.
+Register uses default create form from django which can be customized later
+Django comes with admin page view so you can check the registered user and also create your own user profile detail, the one here used are merely test variable which will be changed later
