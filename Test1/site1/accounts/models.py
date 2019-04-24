@@ -4,11 +4,13 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class UserProfile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	description = models.CharField(max_length=100, default='')
-	city = models.CharField(max_length=100, default='')
-	website = models.URLField(default='')
-	phone = models.IntegerField(default=0)
+	username = models.OneToOneField(User, on_delete=models.CASCADE)
+	first_name = models.CharField(max_length=100, default='')
+	last_name = models.CharField(max_length=100, default='')
+	email = models.EmailField(max_length=100, default='')
+	address = models.CharField(max_length=100, default='')
+	credit_card_number = models.CharField(max_length=100, default='')
+	phone_number = models.CharField(max_length=100, default='')
 	
 def create_profile(sender, **kwargs):
 	if kwargs['created']:
