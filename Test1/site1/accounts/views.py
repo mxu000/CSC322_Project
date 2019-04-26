@@ -35,7 +35,7 @@ def edit_profile(request):
 		form = EditProfileForm(request.POST, instance=request.user)
 		if form.is_valid():
 			form.save()
-			return redirect('/account/profile')
+			return redirect('view_profile')
 	else:
 		form = EditProfileForm(instance=request.user)
 		args = {'form': form}
@@ -48,9 +48,9 @@ def change_password(request):
 		if form.is_valid():
 			form.save()
 			update_session_auth_hash(request, form.user)
-			return redirect('/account/profile')
+			return redirect('view_profile')
 		else:
-			return redirect('/account/change-password')
+			return redirect('change_password')
 	else:
 		form = PasswordChangeForm(user=request.user)
 		

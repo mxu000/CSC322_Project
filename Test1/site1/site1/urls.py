@@ -20,9 +20,11 @@ from django.contrib.auth.views import (
 	LoginView, 
 	LogoutView, 
 	)
+
 urlpatterns = [
     path('', site1_views.login_redirect, name='login_redirect'),
     path('admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
 	path('account/login/', LoginView.as_view(template_name= 'accounts/login.html')),
+	
 ]
