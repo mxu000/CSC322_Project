@@ -12,9 +12,11 @@
 	<p>First Name: {{ user.first_name }}</p>
 	<p>Last Name: {{ user.last_name }}</p>
 	<p>Email: {{ user.email }}</p>
-	<p>Address: {{ user.address }}</p>
-	<p>Credit Card Number: {{ user.credit_card_number }}</p>
-	<p>Phone Number: {{ user.phone_number }}</p>
-
+	<p>Address: {{ user.userprofile.address }}</p>
+	<p>Credit Card Number: {{ user.userprofile.credit_card_number }}</p>
+	<p>Phone Number: {{ user.userprofile.phone_number }}</p>
+	{% if user.userprofile.image %}
+		<img src="{{ user.userprofile.image.url}}" width="480">
+	{% endif %}
 </div>
 {% endblock %}

@@ -20,9 +20,8 @@ class LoginRequiredMiddleware:
 		assert hasattr(request, 'user')
 		path = request.path_info
 		url_is_exempt = any(url.match(path) for url in EXEMPT_URLS)
-		
-		if path == '/account/':
-			return request.GET.get(path)
+		if path == '/home/':
+			return request.GET.get(settings.LOGIN_REDIRECT_URL)
 
 		elif request.user.is_authenticated and url_is_exempt:
 			print("1")

@@ -11,7 +11,7 @@ class RegistrationForm(UserCreationForm):
 	credit_card_number = forms.CharField(required=True)
 	phone_number = forms.CharField(required=True)
 	class Meta:
-		model = User
+		model = UserProfile
 		fields = (
 			'username',
 			'first_name',
@@ -25,18 +25,18 @@ class RegistrationForm(UserCreationForm):
 			)
 			
 		def save(self, commit=True):
-			user = super(RegistrationForm, self).save(commit=False)
-			user.first_name = self.cleaned_data['first_name']
-			user.last_name = self.cleaned_data['last_name']
-			user.email = self.cleaned_data['email']
-			user.address = self.cleaned_data['address']
-			user.credit_card_number = self.cleaned_data['credit_card_number']
-			user.phone_number = self.cleaned_data['phone_number']
+			userprofile = super(RegistrationForm, self).save(commit=False)
+			userprofile.first_name = self.cleaned_data['first_name']
+			userprofile.last_name = self.cleaned_data['last_name']
+			userprofile.email = self.cleaned_data['email']
+			userprofile.address = self.cleaned_data['address']
+			userprofile.credit_card_number = self.cleaned_data['credit_card_number']
+			userprofile.phone_number = self.cleaned_data['phone_number']
 			
 			if commit:
-				user.save()
+				userprofile.save()
 			
-			return user
+			return userprofile
 			
 class EditProfileForm(UserChangeForm):
 	
@@ -49,5 +49,7 @@ class EditProfileForm(UserChangeForm):
 		'address',
 		'credit_card_number',
 		'phone_number',
+		'image',
 		'password',
 		)
+		

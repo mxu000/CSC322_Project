@@ -6,18 +6,12 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def home(request):
-	numbers = [1,2,3,4,5]
-	name = 'Ming Ming'
-	args = {'myName': name, 'myNumbers': numbers}
-	return render(request, 'accounts/home.html', args)
-
 def register(request):
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('/account')
+			return redirect('home')
 	else:
 		form = RegistrationForm()
 		

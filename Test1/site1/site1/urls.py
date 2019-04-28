@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from site1 import views as site1_views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth.views import (
 	LoginView, 
 	LogoutView, 
@@ -25,6 +27,6 @@ urlpatterns = [
     path('', site1_views.login_redirect, name='login_redirect'),
     path('admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
-	path('account/login/', LoginView.as_view(template_name= 'accounts/login.html')),
+	path('home/', include('home.urls')),
 	
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
