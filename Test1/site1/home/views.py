@@ -13,7 +13,7 @@ class HomeView(TemplateView):
 		posts = Post.objects.all().order_by('-created_date', '-updated_date')
 		users = User.objects.exclude(id=request.user.id)
 		if request.user.is_authenticated:
-			friend = Friend.objects.get(current_user=request.user)
+			friend, created = Friend.objects.get_or_create(current_user=request.user)
 			friends = friend.users.all()
 		else:
 			friend = None
