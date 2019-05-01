@@ -11,13 +11,13 @@ class HomeView(TemplateView):
 	def get(self, request):
 		form = HomeForm()
 		posts = Post.objects.all().order_by('-created_date', '-updated_date')
-		users = User.objects.exclude(id=request.user.id)
+		users1 = User.objects.exclude(id = request.user.id)
+		users = users1.exclude(id = 1)
+		friend = None
+		friends = None
 		if request.user.is_authenticated:
 			friend, created = Friend.objects.get_or_create(current_user=request.user)
 			friends = friend.users.all()
-		else:
-			friend = None
-			friends = None
 		args = {
 			'form': form, 
 			'posts': posts, 
