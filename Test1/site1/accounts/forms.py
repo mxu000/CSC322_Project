@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from accounts.models import UserProfile
+from home.models import Post
 
 class RegistrationForm(UserCreationForm):
 	first_name = forms.CharField(required=True)
@@ -42,4 +43,18 @@ class EditProfileForm(UserChangeForm):
 		'email',
 		'password',
 		)
-		
+
+class SearchUser(forms.ModelForm):
+	post = forms.CharField(widget=forms.TextInput(
+			attrs={
+				'class': 'form-control',
+				'placeholder': 'Enter User...',
+			}
+		))
+	
+	class Meta:
+		model = Post
+		fields = (
+			'post',
+			
+		)

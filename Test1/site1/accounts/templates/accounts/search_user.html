@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+<h1>Home</h1>
+{% block head %}
+<title>OsakiTenka</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h1>Search User</h1>
+	{% if user.is_authenticated %}
+		<form method="post">
+		{% csrf_token%}
+		{{ form.post }}
+		<br>
+		<button type="submit">Search</button>
+		</form>
+	{% endif %}
+	<h2>Users</h2>
+		{% for user in users %}
+			{% if user not in friends%}
+			<a href="{% url 'view_profile_with_pk' pk=user.pk %}">
+				<h3>{{ user.username }}</h3>
+			</a>
+			<a href="{% url 'change_friend' operation='add' pk=user.pk %}">
+				<button type="button" class="btn btn-success">Add</button>
+			</a>
+			{% endif %}
+		{% endfor %}
+</div>
+{% endblock %}
