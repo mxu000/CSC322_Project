@@ -46,5 +46,5 @@ def change_friends(request, operation, pk):
 		Friend.remove_friend(request.user, friend)
 	else:
 		return redirect('home')
-	return redirect('home')
+	return redirect('friend_list')
 			

@@ -22,20 +22,5 @@
 				<p>Posted by {{ post.user.username }} on {{ post.created_date }}</p>
 			{% endfor %}
 	</div>
-	{% if user.is_authenticated %}
-	<div class="col-md-4">
-		<h2>Other Users</h2>
-		{% for user in users %}
-			{% if user not in friends%}
-			<a href="{% url 'view_profile_with_pk' pk=user.pk %}">
-				<h3>{{ user.username }}</h3>
-			</a>
-			<a href="{% url 'change_friend' operation='add' pk=user.pk %}">
-				<button type="button" class="btn btn-success">Add</button>
-			</a>
-			{% endif %}
-		{% endfor %}
-	</div>
-	{% endif %}
 </div>
 {% endblock %}
