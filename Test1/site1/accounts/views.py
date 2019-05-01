@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from accounts.forms import RegistrationForm, EditProfileForm
+from home.models import Friend
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -54,3 +55,14 @@ def change_password(request):
 		
 		args = {'form': form}
 		return render(request, 'accounts/change_password.html', args)
+		
+def friend_list(request):
+		friend = None
+		friends = None
+		if request.user.is_authenticated:
+			friend, created = Friend.objects.get_or_create(current_user=request.user)
+			friends = friend.users.all()
+		args = {
+			'friends': friends,
+		}
+		return render(request, 'accounts/friend_list.html', args)

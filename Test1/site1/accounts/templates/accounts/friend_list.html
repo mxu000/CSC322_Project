@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+<h1>Home</h1>
+{% block head %}
+<title>OsakiTenka</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h2>Friends</h2>
+		{% for friend in friends %}
+			<a href="{% url 'view_profile_with_pk' pk=friend.pk %}">
+				<h3>{{ friend.username }}</h3>
+			</a>
+			<a href="{% url 'change_friend' operation='remove' pk=friend.pk %}">
+				<button type="button" class="btn btn-danger">Remove</button>
+			</a>
+		{% endfor %}
+</div>
+{% endblock %}

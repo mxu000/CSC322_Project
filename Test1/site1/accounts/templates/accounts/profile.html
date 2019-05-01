@@ -18,5 +18,11 @@
 	{% if user.UserProfile.image %}
 		<img src="{{ user.UserProfile.image.url}}" width="480">
 	{% endif %}
+	<button type="button" class="btn btn-link">
+		<a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+	</button>
+	<button type="button" class="btn btn-link">
+		<a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+	</button>
 </div>
 {% endblock %}
