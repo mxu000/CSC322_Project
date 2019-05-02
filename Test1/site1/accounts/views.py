@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from accounts.forms import RegistrationForm, EditProfileForm, SearchUser
 from home.models import Friend
+from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -15,8 +16,8 @@ def register(request):
 			return redirect('home')
 	else:
 		form = RegistrationForm()
-		
-	args = {'form': form}
+
+	args = {'form': form,}
 	return render(request, 'accounts/reg_form.html', args)
 
 
@@ -65,19 +66,21 @@ def friend_list(request):
 		return render(request, 'accounts/friend_list.html', args)
 		
 def search_user(request):
-		text = ''
-		form = SearchUser(request.POST)
-		if form.is_valid():
-			form = SearchUser()
-			return redirect('search_user')
-		#users = User.objects.filter(username__icontains= text)
 		users = User.objects.exclude(id = request.user.id)
 		users = users.exclude(id = 1)
+		if request.method == 'POST':
+			text = request.POST.get('textfield', None)
+			try:
+				users = users.filter(username__icontains= text)
+			except:
+				return redirect('search_user')
 		friend, created = Friend.objects.get_or_create(current_user=request.user)
 		friends = friend.users.all()
 		args = {
-			'form': form,
 			'users': users,
 			'friends': friends,
 			}
 		return render(request, 'accounts/search_user.html', args)
+
+def notify(request):
+	return render(request, 'accounts/notify.html')

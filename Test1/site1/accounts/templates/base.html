@@ -7,7 +7,7 @@
 		
 		<meta name="viewport" content="width=device-width, inital-scale=1.0">
 		{% block head %}
-		<title>Base</title>
+		<title>OsakiTenka</title>
 		{% endblock %}
 	</head>
 	<body>
@@ -21,6 +21,9 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'friend_list' %}">Friends</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'notify' %}">Notifications</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'logout' %}">Logout</a>
