@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
 	path('', HomeView.as_view(), name='home'),
-	url(r'^connect/(?P<operation>.+)/(?P<pk>\d+)/$', views.change_friends, name='change_friend'),
+	url(r'^connect0/(?P<operation>.+)/(?P<pk>\d+)/$', views.change_friends, name='change_friend'),
+	url(r'^connect1/(?P<operation>.+)/(?P<pk>\d+)/$', views.friend_requests, name='friend_request'),
 ]
