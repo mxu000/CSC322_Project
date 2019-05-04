@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
-from accounts.forms import RegistrationForm, EditProfileForm, SearchUser
-from home.models import Friend
-from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+
+from accounts.forms import RegistrationForm, EditProfileForm, SearchUser
+from accounts.models import UserProfile
+from home.models import Friend, Friend_Request
 
 # Create your views here.
 def register(request):
@@ -58,10 +60,14 @@ def change_password(request):
 		return render(request, 'accounts/change_password.html', args)
 		
 def friend_list(request):
-		friend, created = Friend.objects.get_or_create(current_user=request.user)
+		friend, created = Friend.objects.get_or_create(
+			current_user=request.user
+			)
 		friends = friend.users.all()
+		frequest = Friend_Request.objects.filter(current_user=request.user)
 		args = {
 			'friends': friends,
+			'frequest': frequest,
 		}
 		return render(request, 'accounts/friend_list.html', args)
 		
@@ -76,11 +82,20 @@ def search_user(request):
 				return redirect('search_user')
 		friend, created = Friend.objects.get_or_create(current_user=request.user)
 		friends = friend.users.all()
+		frequest = Friend_Request.objects.filter(current_user=request.user)
 		args = {
 			'users': users,
 			'friends': friends,
+			'frequest': frequest,
 			}
 		return render(request, 'accounts/search_user.html', args)
 
-def notify(request):
-	return render(request, 'accounts/notify.html')
+class NotifyView(TemplateView):
+	template_name = 'accounts/notify.html'
+
+	def get(self, request):
+		frequest = Friend_Request.objects.filter(request_user=request.user)
+		args = {
+			'frequest': frequest,
+		}
+		return render(request, self.template_name, args)

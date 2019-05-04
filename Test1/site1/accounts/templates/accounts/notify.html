@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<title>Notifications</title>
+{% endblock %}
+
 {% block body %}
-	<p> 
-		This is where all notifications should appear like
-		friend request with Accept and Decline action
-			When Accept -> approve add user to friendlist and delete this
-			When Decline -> delete friend object and this
-		Addon... 
-			Admin Warning
-			Promoted/Demoted VIP
-			etc..
-	</p>
+<div class="container">
+	<h2>Friend Request</h2>
+		{% for req in frequest %}
+			{% if not req.is_approved %}
+			<a href="{% url 'view_profile_with_pk'	pk=req.current_user.pk %}">
+				<h3>{{ req.current_user.username }}</h3>
+			</a>
+			<a href="{% url 'friend_request'	operation='accept'	pk=req.current_user.pk %}">
+				<button type="button" class="btn btn-Success">Accept</button>
+			</a>
+			<a href="{% url 'friend_request'	operation='decline'	pk=req.current_user.pk %}">
+				<button type="button" class="btn btn-danger">Decline</button>
+			</a>
+			{% endif %}
+		{% endfor %}
+</div>
 {% endblock %}
