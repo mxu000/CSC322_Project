@@ -14,6 +14,7 @@ class UserProfile(models.Model):
 	first_name = models.CharField(max_length=100, default='')
 	last_name = models.CharField(max_length=100, default='')
 	email = models.EmailField(max_length=100, default='')
+	balance = models.DecimalField(max_digits = 6, decimal_places = 2, default = 0.00)
 	address = models.CharField(max_length=100, default='')
 	credit_card_number = models.CharField(max_length=100, default='')
 	phone_number = models.CharField(max_length=100, default='')
